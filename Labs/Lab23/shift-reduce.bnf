@@ -1,0 +1,85 @@
+# Mostre os passos de reconhecimento do analisador shift-reduce,
+# indicando o handle em cada passo, para as seguintes entradas 
+# e gramáticas:
+
+#1
+S -> 0S1 
+   | 01
+
+a) 000111
+#Pilha   Entrada    Ação
+$        000111$    shift
+$0        00111$    shift
+$00        0111$    shift
+$000        111$    shift
+$0001        11$    reduce (S->01)
+$00S         11$    shift
+$00S1         1$    reduce (S->0S1)
+$0S           1$    shift
+$0S1           $    reduce (S->0S1)
+$S             $    accept
+
+
+#2
+S -> SS+ 
+   | SS* 
+   | a
+
+a) SSS+a*+
+#Pilha   Entrada    Ação
+$        SSS+a*+$   shift
+$S        SS+a*+$   shift
+$SS        S+a*+$   shift
+$SSS        +a*+$   shift
+$SSS+        a*+$   reduce (S->SS+)
+$SS          a*+$   shift
+$SSa          *+$   reduce (S->a) 
+$SSS          *+$   shift
+$SSS*          +$   reduce (S->SS*)
+$SS            +$   shift
+$SS+            $   reduce (S->SS+)
+$S              $   accept 
+
+
+S -> SS+ 
+   | SS* 
+   | a
+
+b) SS+a*a+
+#Pilha   Entrada    Ação
+$        SS+a*a+$   shift
+$S        S+a*a+$   shift
+$SS        +a*a+$   shift
+$SS+        a*a+$   reduce (S->SS+)  
+$S          a*a+$   shift
+$Sa          *a+$   reduce (S->a)
+$SS          *a+$   shift
+$SS*          a+$   reduce (S->SS*)
+$S            a+$   shift
+$Sa            +$   reduce (S->a) 
+$SS            +$   shift
+$SS+            $   reduce (S->SS+)
+$S              $   accept
+
+
+S -> SS+ 
+   | SS* 
+   | a
+
+c) aaa*a++
+#Pilha   Entrada    Ação
+$        aaa*a++$   shift
+$a        aa*a++$   reduce (S->a)
+$S        aa*a++$   shift
+$Sa        a*a++$   reduce (S->a)
+$SS        a*a++$   shift
+$SSa        *a++$   reduce (S->a)  
+$SSS        *a++$   shift
+$SSS*        a++$   reduce (S->SS*) 
+$SS          a++$   shift
+$SSa          ++$   reduce (S->a)
+$SSS          ++$   shift
+$SSS+          +$   reduce (S->SS+)
+$SS            +$   shift
+$SS+            $   reduce (S->SS+)
+$S              $   accept 
