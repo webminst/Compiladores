@@ -2,4 +2,4 @@ Este repositório servirá para hospedar os exercícios (Labs), os slides das au
 
 Subindo os Slides
 
-Subindo os Esercícios (Labs)
+Subindo os Exercícios (Labs)
